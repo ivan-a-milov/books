@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=BookRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Book
 {
@@ -32,6 +33,11 @@ class Book
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $uploadDate;
 
     public function getId(): ?int
     {
@@ -72,5 +78,25 @@ class Book
         $this->author = $author;
 
         return $this;
+    }
+
+    public function getUploadDate(): ?\DateTimeInterface
+    {
+        return $this->uploadDate;
+    }
+
+    public function setUploadDate(\DateTimeInterface $uploadDate): self
+    {
+        $this->uploadDate = $uploadDate;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function onPrePersist()
+    {
+        $this->uploadDate = new \DateTime("now");
     }
 }
