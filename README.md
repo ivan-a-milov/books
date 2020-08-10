@@ -18,9 +18,6 @@ curl -X POST --data-binary "@../examples/example.epub" http://localhost:8000/pos
 ```
 
 # Функционал сводной статистики
-
-Тут пока что заглушка.
-
 ```
 http://localhost:8000/summary
 ```
